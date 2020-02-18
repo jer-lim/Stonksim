@@ -8,8 +8,9 @@ use Jerlim\Stonksim\Interfaces\StockPriceProducer;
 use Jerlim\Stonksim\IntervalPrice;
 use Jerlim\Stonksim\StockInfo;
 use Jerlim\Stonksim\StockPriceData;
+use PHPUnit\Framework\TestCase;
 
-class Fakes extends \PHPUnit\Framework\TestCase
+class Fakes extends TestCase
 {
     public function fakeIntervalPrice(float $price): IntervalPrice
     {
@@ -28,6 +29,7 @@ class Fakes extends \PHPUnit\Framework\TestCase
         return StockInfo::newBuilder()
             ->setName("Test Stock")
             ->setTicker("TESTTEST")
+            ->setLotSize(100)
             ->build();
     }
 

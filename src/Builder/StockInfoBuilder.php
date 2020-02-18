@@ -9,6 +9,7 @@ class StockInfoBuilder
 {
     private string $ticker;
     private string $name;
+    private int $lotSize;
 
     /**
      * @return string
@@ -45,6 +46,25 @@ class StockInfoBuilder
         $this->name = $name;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getLotSize(): int
+    {
+        return $this->lotSize;
+    }
+
+    /**
+     * @param int $lotSize
+     * @return StockInfoBuilder
+     */
+    public function setLotSize(int $lotSize): StockInfoBuilder
+    {
+        $this->lotSize = $lotSize;
+        return $this;
+    }
+
 
     public function build(): StockInfo
     {

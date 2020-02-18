@@ -10,6 +10,7 @@ use Jerlim\Stonksim\StockPriceData;
 class SimulatorBuilder
 {
     private StockPriceData $stockPriceData;
+    private float $money;
 
     public function build(): Simulator
     {
@@ -31,6 +32,24 @@ class SimulatorBuilder
     public function setStockPriceData(StockPriceData $stockPriceData): SimulatorBuilder
     {
         $this->stockPriceData = $stockPriceData;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMoney(): float
+    {
+        return $this->money;
+    }
+
+    /**
+     * @param float $money
+     * @return SimulatorBuilder
+     */
+    public function setMoney(float $money): SimulatorBuilder
+    {
+        $this->money = $money;
         return $this;
     }
 
