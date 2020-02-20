@@ -33,11 +33,51 @@ class Fakes extends TestCase
             ->build();
     }
 
-    public function fakeStockPriceData(int $numIntervals): StockPriceData
+    public function fakeAscendingStockPriceData(int $numIntervals): StockPriceData
     {
         $intervalPrices = [];
         for ($i = 0; $i < $numIntervals; ++$i) {
             array_push($intervalPrices, $this->fakeIntervalPrice($i + 1));
+        }
+        $stub = $this->createStub(StockPriceProducer::class);
+        $stub->method('getIntervalPrices')
+            ->willReturn($intervalPrices);
+        return StockPriceData::newBuilder()
+            ->setStockPriceProducer($stub)
+            ->setStockInfo($this->fakeStockInfo())
+            ->setFirstDateTime(new \DateTime())
+            ->setLastDateTime(new \DateTime())
+            ->setInterval(new \DateInterval('PT0S'))
+            ->build();
+    }
+
+    public function fakeTriangularStockPriceData(int $numIntervals):
+    StockPriceData
+    {
+        $intervalPrices = [];
+        $prev = 0;
+        for ($i = 1; $i < $numIntervals + 1; ++$i) {
+            $prev += $i;
+            array_push($intervalPrices, $this->fakeIntervalPrice($prev));
+        }
+        $stub = $this->createStub(StockPriceProducer::class);
+        $stub->method('getIntervalPrices')
+            ->willReturn($intervalPrices);
+        return StockPriceData::newBuilder()
+            ->setStockPriceProducer($stub)
+            ->setStockInfo($this->fakeStockInfo())
+            ->setFirstDateTime(new \DateTime())
+            ->setLastDateTime(new \DateTime())
+            ->setInterval(new \DateInterval('PT0S'))
+            ->build();
+    }
+
+    public function fakeConstantStockPriceData(int $numIntervals):
+    StockPriceData
+    {
+        $intervalPrices = [];
+        for ($i = 1; $i < $numIntervals; ++$i) {
+            array_push($intervalPrices, $this->fakeIntervalPrice(0.5));
         }
         $stub = $this->createStub(StockPriceProducer::class);
         $stub->method('getIntervalPrices')

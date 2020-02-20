@@ -29,6 +29,19 @@ class IntervalPrice
         return new IntervalPriceBuilder();
     }
 
+    public function get(OrderTime $orderTime): float
+    {
+        if ($orderTime == OrderTime::AT_OPEN) {
+            return $this->getOpen();
+        } elseif ($orderTime == OrderTime::AT_LOW) {
+            return $this->getLow();
+        } elseif ($orderTime == OrderTime::AT_HIGH) {
+            return $this->getHigh();
+        } else {
+            return $this->getClose();
+        }
+    }
+
     /**
      * @return float
      */

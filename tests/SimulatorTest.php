@@ -12,7 +12,7 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
     public function testEnded()
     {
         $fakes = new Fakes();
-        $stockPriceData = $fakes->fakeStockPriceData(3);
+        $stockPriceData = $fakes->fakeAscendingStockPriceData(3);
         $sim = Simulator::newBuilder()
             ->setStockPriceData($stockPriceData)
             ->setMoney(10000)
@@ -26,7 +26,7 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
     public function testForward()
     {
         $fakes = new Fakes();
-        $stockPriceData = $fakes->fakeStockPriceData(3);
+        $stockPriceData = $fakes->fakeAscendingStockPriceData(3);
         $sim = Simulator::newBuilder()
             ->setStockPriceData($stockPriceData)
             ->setMoney(10000)
@@ -39,7 +39,7 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
     public function testBuy()
     {
         $fakes = new Fakes();
-        $stockPriceData = $fakes->fakeStockPriceData(10);
+        $stockPriceData = $fakes->fakeAscendingStockPriceData(10);
         $sim = Simulator::newBuilder()
             ->setStockPriceData($stockPriceData)
             ->setMoney(10000)
@@ -65,7 +65,7 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
     public function testSell()
     {
         $fakes = new Fakes();
-        $stockPriceData = $fakes->fakeStockPriceData(10);
+        $stockPriceData = $fakes->fakeAscendingStockPriceData(10);
         $sim = Simulator::newBuilder()
             ->setStockPriceData($stockPriceData)
             ->setMoney(10000)
