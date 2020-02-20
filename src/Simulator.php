@@ -5,6 +5,8 @@ namespace Jerlim\Stonksim;
 
 
 use Jerlim\Stonksim\Builder\SimulatorBuilder;
+use Jerlim\Stonksim\Interfaces\Indicator;
+use Jerlim\Stonksim\Interfaces\IndicatorBuilder;
 
 class Simulator
 {
@@ -13,6 +15,11 @@ class Simulator
 
     private int $currentInterval = 0;
     private int $position = 0;
+    /**
+     * @var Indicator[]
+     */
+    private array $indicators = [];
+    private int $firstInterval = 0;
 
     public function __construct(SimulatorBuilder $builder)
     {
@@ -48,6 +55,29 @@ class Simulator
     {
         return $this->currentInterval + 1 >=
             $this->stockPriceData->getNumIntervals();
+    }
+
+    /**
+     * @return int
+     */
+    public function getInterval(): int
+    {
+        return $this->currentInterval;
+    }
+
+    /**
+     * Change the current interval to a specified number. Returns true if it
+     * is a valid interval.
+     * @param int $intervalNum
+     * @return bool
+     */
+    public function setInterval(int $intervalNum): bool
+    {
+        if ($intervalNum < $this->stockPriceData->getNumIntervals()) {
+            $this->currentInterval = $intervalNum;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -105,6 +135,63 @@ class Simulator
 
         $this->money += $cost;
         $this->position -= $num;
+    }
+
+    /**
+     * Recursively adds an Indicator and its requirements from the
+     * IndicatorBuilder. Returns the added Indicator, or an existing instance
+     * if it was already present.
+     * @param IndicatorBuilder $builder
+     * @return Indicator
+     */
+    public function addIndicator(IndicatorBuilder $builder): Indicator
+    {
+        $requirements = $builder->requirements();
+        foreach ($requirements as $requirement) {
+            // Requirement should be in the format of
+            // [IndicatorBuilder, Closure]
+            $b = $requirement[0];
+            if (!$b instanceof IndicatorBuilder) {
+                $class = get_class($builder);
+                throw new \UnexpectedValueException("First item in $class requirements array is not an IndicatorBuilder.");
+            }
+            $callback = $requirement[1];
+            if (!$callback instanceof \Closure) {
+                $class = get_class($builder);
+                throw new \UnexpectedValueException("Second item in $class requirements array is not callable.");
+            }
+
+            // Check if there is enough data to fit the indicator
+            if ($b->numPriorIntervals() >=
+                $this->stockPriceData->getNumIntervals()) {
+                throw new \RuntimeException("There is not enough data to fit this indicator.");
+            }
+
+            // Start the simulator at a later time if needed
+            // to ensure all indicators have values
+            if ($this->firstInterval < $b->numPriorIntervals()) {
+                $this->firstInterval = $b->numPriorIntervals();
+                $this->setInterval($this->firstInterval);
+            }
+
+            $indicator = $this->addIndicator($b);
+            $callback($indicator);
+        }
+
+        if (!$this->hasIndicator($builder)) {
+            $this->indicators[strval($builder)] = $builder->build();
+        }
+        return $this->indicators[strval($builder)];
+    }
+
+    public function getIndicator(IndicatorBuilder $builder): Indicator
+    {
+        return $this->indicators[strval($builder)];
+    }
+
+    public function hasIndicator(IndicatorBuilder $builder): bool
+    {
+        return isset($this->indicators[strval($builder)]);
     }
 
     /**
