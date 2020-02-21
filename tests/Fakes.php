@@ -12,12 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class Fakes extends TestCase
 {
-    /**
-     * 1 2 3 4 5 6 7 8 9 10
-     * @param int $numIntervals
-     * @return StockPriceData
-     * @throws \Exception
-     */
+    // 1 2 3 4 5 6 7 8 9 10
     public function fakeAscendingStockPriceData(int $numIntervals): StockPriceData
     {
         $intervalPrices = [];

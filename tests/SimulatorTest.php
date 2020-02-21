@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Jerlim\Stonksim\Test;
 
+use Jerlim\Stonksim\Indicator\NegativeChangeOnly;
+use Jerlim\Stonksim\Indicator\PositiveChangeOnly;
+use Jerlim\Stonksim\Indicator\RawChange;
 use Jerlim\Stonksim\OrderTime;
 use Jerlim\Stonksim\Simulator;
 
@@ -35,6 +38,23 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
         static::assertTrue($sim->forward());
         static::assertNotTrue($sim->forward());
     }
+
+    public function testSetInterval()
+    {
+        $fakes = new Fakes();
+        $stockPriceData = $fakes->fakeAscendingStockPriceData(5);
+        $sim = Simulator::newBuilder()
+            ->setStockPriceData($stockPriceData)
+            ->setMoney(10000)
+            ->build();
+        self::assertTrue($sim->setInterval(1));
+        self::assertTrue($sim->setInterval(0));
+        self::assertTrue($sim->setInterval(2));
+        self::assertTrue($sim->setInterval(3));
+        self::assertTrue($sim->setInterval(4));
+        self::assertFalse($sim->setInterval(6));
+    }
+
 
     public function testBuy()
     {
@@ -88,5 +108,41 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
                 static::assertEquals(0, $sim->getPosition());
             }
         }
+    }
+
+    public function testAddIndicator()
+    {
+        $fakes = new Fakes();
+        $stockPriceData = $fakes->fakeAscendingStockPriceData(50);
+        $sim = Simulator::newBuilder()
+            ->setStockPriceData($stockPriceData)
+            ->setMoney(10000)
+            ->build();
+        $rawChange = $sim->addIndicator(RawChange::newBuilder($stockPriceData));
+        self::assertTrue($sim->hasIndicator(RawChange::newBuilder($stockPriceData)));
+        self::assertEquals($rawChange, $sim->getIndicator(RawChange::newBuilder
+        ($stockPriceData)));
+
+        $positiveChange = $sim->addIndicator(PositiveChangeOnly::newBuilder
+        ($stockPriceData));
+        self::assertTrue($sim->hasIndicator(RawChange::newBuilder($stockPriceData)));
+        self::assertTrue($sim->hasIndicator(PositiveChangeOnly::newBuilder($stockPriceData)));
+        self::assertEquals($rawChange, $sim->getIndicator(RawChange::newBuilder
+        ($stockPriceData)));
+        self::assertEquals($positiveChange, $sim->getIndicator
+        (PositiveChangeOnly::newBuilder($stockPriceData)));
+
+        $negativeChange = $sim->addIndicator(NegativeChangeOnly::newBuilder
+        ($stockPriceData));
+        self::assertTrue($sim->hasIndicator(RawChange::newBuilder($stockPriceData)));
+        self::assertTrue($sim->hasIndicator(PositiveChangeOnly::newBuilder($stockPriceData)));
+        self::assertTrue($sim->hasIndicator(NegativeChangeOnly::newBuilder
+        ($stockPriceData)));
+        self::assertEquals($rawChange, $sim->getIndicator(RawChange::newBuilder
+        ($stockPriceData)));
+        self::assertEquals($positiveChange, $sim->getIndicator
+        (PositiveChangeOnly::newBuilder($stockPriceData)));
+        self::assertEquals($negativeChange, $sim->getIndicator
+        (NegativeChangeOnly::newBuilder($stockPriceData)));
     }
 }
