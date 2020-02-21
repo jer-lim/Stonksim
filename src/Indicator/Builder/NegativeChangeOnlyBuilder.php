@@ -12,12 +12,8 @@ use Jerlim\Stonksim\StockPriceData;
 
 class NegativeChangeOnlyBuilder extends IndicatorBuilder
 {
+    private StockPriceData $stockPriceData;
     private RawChange $rawChangeInd;
-
-    public function __construct(StockPriceData $stockPriceData)
-    {
-        parent::__construct($stockPriceData);
-    }
 
     /**
      * @inheritDoc
@@ -33,7 +29,7 @@ class NegativeChangeOnlyBuilder extends IndicatorBuilder
     public function requirements(): array
     {
         return [
-            [RawChange::newBuilder($this->stockPriceData),
+            [RawChange::newBuilder(),
                 fn($ind) => $this->setRawChangeInd($ind)]
         ];
     }
@@ -51,7 +47,7 @@ class NegativeChangeOnlyBuilder extends IndicatorBuilder
      */
     public function numPriorIntervals(): int
     {
-        return RawChange::newBuilder($this->stockPriceData)
+        return RawChange::newBuilder()
             ->numPriorIntervals();
     }
 
@@ -70,6 +66,24 @@ class NegativeChangeOnlyBuilder extends IndicatorBuilder
     public function setRawChangeInd(RawChange $rawChangeInd): NegativeChangeOnlyBuilder
     {
         $this->rawChangeInd = $rawChangeInd;
+        return $this;
+    }
+
+    /**
+     * @return StockPriceData
+     */
+    public function getStockPriceData(): StockPriceData
+    {
+        return $this->stockPriceData;
+    }
+
+    /**
+     * @param StockPriceData $stockPriceData
+     * @return NegativeChangeOnlyBuilder
+     */
+    public function setStockPriceData(StockPriceData $stockPriceData): NegativeChangeOnlyBuilder
+    {
+        $this->stockPriceData = $stockPriceData;
         return $this;
     }
 }

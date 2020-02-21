@@ -20,10 +20,9 @@ class NegativeChangeOnly implements Indicator
         $this->rawChangeInd = $builder->getRawChangeInd();
     }
 
-    public static function newBuilder(StockPriceData $stockPriceData):
-    NegativeChangeOnlyBuilder
+    public static function newBuilder(): NegativeChangeOnlyBuilder
     {
-        return new NegativeChangeOnlyBuilder($stockPriceData);
+        return new NegativeChangeOnlyBuilder();
     }
 
     /**

@@ -47,6 +47,7 @@ class StockPriceDataTest extends \PHPUnit\Framework\TestCase
         return StockInfo::newBuilder()
             ->setName("Test Stock")
             ->setTicker("TESTTEST")
+            ->setLotSize(100)
             ->build();
     }
 

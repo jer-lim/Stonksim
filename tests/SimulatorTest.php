@@ -118,31 +118,31 @@ class SimulatorTest extends \PHPUnit\Framework\TestCase
             ->setStockPriceData($stockPriceData)
             ->setMoney(10000)
             ->build();
-        $rawChange = $sim->addIndicator(RawChange::newBuilder($stockPriceData));
-        self::assertTrue($sim->hasIndicator(RawChange::newBuilder($stockPriceData)));
+        $rawChange = $sim->addIndicator(RawChange::newBuilder());
+        self::assertTrue($sim->hasIndicator(RawChange::newBuilder()));
         self::assertEquals($rawChange, $sim->getIndicator(RawChange::newBuilder
-        ($stockPriceData)));
+        ()));
 
         $positiveChange = $sim->addIndicator(PositiveChangeOnly::newBuilder
-        ($stockPriceData));
-        self::assertTrue($sim->hasIndicator(RawChange::newBuilder($stockPriceData)));
-        self::assertTrue($sim->hasIndicator(PositiveChangeOnly::newBuilder($stockPriceData)));
+        ());
+        self::assertTrue($sim->hasIndicator(RawChange::newBuilder()));
+        self::assertTrue($sim->hasIndicator(PositiveChangeOnly::newBuilder()));
         self::assertEquals($rawChange, $sim->getIndicator(RawChange::newBuilder
-        ($stockPriceData)));
+        ()));
         self::assertEquals($positiveChange, $sim->getIndicator
-        (PositiveChangeOnly::newBuilder($stockPriceData)));
+        (PositiveChangeOnly::newBuilder()));
 
         $negativeChange = $sim->addIndicator(NegativeChangeOnly::newBuilder
-        ($stockPriceData));
-        self::assertTrue($sim->hasIndicator(RawChange::newBuilder($stockPriceData)));
-        self::assertTrue($sim->hasIndicator(PositiveChangeOnly::newBuilder($stockPriceData)));
+        ());
+        self::assertTrue($sim->hasIndicator(RawChange::newBuilder()));
+        self::assertTrue($sim->hasIndicator(PositiveChangeOnly::newBuilder()));
         self::assertTrue($sim->hasIndicator(NegativeChangeOnly::newBuilder
-        ($stockPriceData)));
+        ()));
         self::assertEquals($rawChange, $sim->getIndicator(RawChange::newBuilder
-        ($stockPriceData)));
+        ()));
         self::assertEquals($positiveChange, $sim->getIndicator
-        (PositiveChangeOnly::newBuilder($stockPriceData)));
+        (PositiveChangeOnly::newBuilder()));
         self::assertEquals($negativeChange, $sim->getIndicator
-        (NegativeChangeOnly::newBuilder($stockPriceData)));
+        (NegativeChangeOnly::newBuilder()));
     }
 }

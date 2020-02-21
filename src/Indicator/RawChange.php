@@ -18,9 +18,9 @@ class RawChange implements Indicator
         $this->stockPriceData = $builder->getStockPriceData();
     }
 
-    public static function newBuilder(StockPriceData $stockPriceData): RawChangeBuilder
+    public static function newBuilder(): RawChangeBuilder
     {
-        return new RawChangeBuilder($stockPriceData);
+        return new RawChangeBuilder();
     }
 
     /**

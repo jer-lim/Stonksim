@@ -14,7 +14,8 @@ class RawChangeTest extends \PHPUnit\Framework\TestCase
     {
         $fakes = new Fakes();
         $stockPriceData = $fakes->fakeTriangularStockPriceData(3);
-        $indicator = RawChange::newBuilder($stockPriceData)
+        $indicator = RawChange::newBuilder()
+            ->setStockPriceData($stockPriceData)
             ->build();
         self::assertEquals(2, $indicator->get(1, OrderTime::AT_OPEN()));
         self::assertEquals(3, $indicator->get(2, OrderTime::AT_OPEN()));

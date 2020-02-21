@@ -19,8 +19,7 @@ class NegativeChangeOnlyTest extends \PHPUnit\Framework\TestCase
             ->setMoney(10000)
             ->setStockPriceData($stockPriceData)
             ->build();
-        $ind = $sim->addIndicator(NegativeChangeOnly::newBuilder
-        ($stockPriceData));
+        $ind = $sim->addIndicator(NegativeChangeOnly::newBuilder());
         self::assertEquals(-0.5, $ind->get(1, OrderTime::AT_OPEN()));
         self::assertEquals(0, $ind->get(2, OrderTime::AT_OPEN()));
         self::assertEquals(-0.5, $ind->get(3, OrderTime::AT_OPEN()));

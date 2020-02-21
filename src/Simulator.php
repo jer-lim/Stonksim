@@ -179,7 +179,8 @@ class Simulator
         }
 
         if (!$this->hasIndicator($builder)) {
-            $this->indicators[strval($builder)] = $builder->build();
+            $this->indicators[strval($builder)] = $builder->
+            setStockPriceData($this->stockPriceData)->build();
         }
         return $this->indicators[strval($builder)];
     }
