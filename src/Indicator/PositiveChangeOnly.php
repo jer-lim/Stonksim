@@ -5,11 +5,11 @@ namespace Jerlim\Stonksim\Indicator;
 
 
 use Jerlim\Stonksim\Indicator\Builder\PositiveChangeOnlyBuilder;
-use Jerlim\Stonksim\Interfaces\Indicator;
+use Jerlim\Stonksim\Interfaces\CachedIndicator;
 use Jerlim\Stonksim\OrderTime;
 use Jerlim\Stonksim\StockPriceData;
 
-class PositiveChangeOnly implements Indicator
+class PositiveChangeOnly extends CachedIndicator
 {
     private StockPriceData $stockPriceData;
     private RawChange $rawChangeInd;
@@ -28,7 +28,7 @@ class PositiveChangeOnly implements Indicator
     /**
      * @inheritDoc
      */
-    public function get(int $intervalNum, OrderTime $orderTime): float
+    public function getValue(int $intervalNum, OrderTime $orderTime): float
     {
         $change = $this->rawChangeInd->get($intervalNum, $orderTime);
         if ($change > 0) return $change;

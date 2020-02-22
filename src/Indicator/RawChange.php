@@ -5,11 +5,11 @@ namespace Jerlim\Stonksim\Indicator;
 
 
 use Jerlim\Stonksim\Indicator\Builder\RawChangeBuilder;
-use Jerlim\Stonksim\Interfaces\Indicator;
+use Jerlim\Stonksim\Interfaces\CachedIndicator;
 use Jerlim\Stonksim\OrderTime;
 use Jerlim\Stonksim\StockPriceData;
 
-class RawChange implements Indicator
+class RawChange extends CachedIndicator
 {
     private StockPriceData $stockPriceData;
 
@@ -26,7 +26,7 @@ class RawChange implements Indicator
     /**
      * @inheritDoc
      */
-    public function get(int $intervalNum, OrderTime $orderTime): float
+    public function getValue(int $intervalNum, OrderTime $orderTime): float
     {
         return $this->stockPriceData->getPriceAtInterval($intervalNum)->get
             ($orderTime) -
