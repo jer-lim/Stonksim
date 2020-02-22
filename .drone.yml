@@ -1,0 +1,13 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: build
+    image: registry.jerl.im/php-base:7.4
+    commands:
+      - composer install
+  - name: install
+    image: registry.jerl.im/php-base:7.4
+    commands:
+      - vendor/bin/phpunit tests
