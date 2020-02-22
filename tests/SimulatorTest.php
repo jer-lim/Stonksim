@@ -8,8 +8,9 @@ use Jerlim\Stonksim\Indicator\PositiveChangeOnly;
 use Jerlim\Stonksim\Indicator\RawChange;
 use Jerlim\Stonksim\OrderTime;
 use Jerlim\Stonksim\Simulator;
+use PHPUnit\Framework\TestCase;
 
-class SimulatorTest extends \PHPUnit\Framework\TestCase
+class SimulatorTest extends TestCase
 {
 
     public function testEnded()

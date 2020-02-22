@@ -7,8 +7,9 @@ use Jerlim\Stonksim\Indicator\NegativeChangeOnly;
 use Jerlim\Stonksim\OrderTime;
 use Jerlim\Stonksim\Simulator;
 use Jerlim\Stonksim\Test\Fakes;
+use PHPUnit\Framework\TestCase;
 
-class NegativeChangeOnlyTest extends \PHPUnit\Framework\TestCase
+class NegativeChangeOnlyTest extends TestCase
 {
 
     public function testGet()

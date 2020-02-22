@@ -7,8 +7,9 @@ use Jerlim\Stonksim\Interfaces\StockPriceProducer;
 use Jerlim\Stonksim\IntervalPrice;
 use Jerlim\Stonksim\StockInfo;
 use Jerlim\Stonksim\StockPriceData;
+use PHPUnit\Framework\TestCase;
 
-class StockPriceDataTest extends \PHPUnit\Framework\TestCase
+class StockPriceDataTest extends TestCase
 {
 
     public function testGetNumIntervals()

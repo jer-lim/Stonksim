@@ -6,8 +6,9 @@ namespace Jerlim\Stonksim\Test\Indicator;
 use Jerlim\Stonksim\Indicator\RawChange;
 use Jerlim\Stonksim\OrderTime;
 use Jerlim\Stonksim\Test\Fakes;
+use PHPUnit\Framework\TestCase;
 
-class RawChangeTest extends \PHPUnit\Framework\TestCase
+class RawChangeTest extends TestCase
 {
 
     public function testGet()
