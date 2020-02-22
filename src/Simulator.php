@@ -167,15 +167,15 @@ class Simulator
                 throw new \RuntimeException("There is not enough data to fit this indicator.");
             }
 
-            // Start the simulator at a later time if needed
-            // to ensure all indicators have values
-            if ($this->firstInterval < $b->numPriorIntervals()) {
-                $this->firstInterval = $b->numPriorIntervals();
-                $this->setInterval($this->firstInterval);
-            }
-
             $indicator = $this->addIndicator($b);
             $callback($indicator);
+        }
+
+        // Start the simulator at a later time if needed
+        // to ensure all indicators have values
+        if ($this->firstInterval < $builder->numPriorIntervals()) {
+            $this->firstInterval = $builder->numPriorIntervals();
+            $this->setInterval($this->firstInterval);
         }
 
         if (!$this->hasIndicator($builder)) {

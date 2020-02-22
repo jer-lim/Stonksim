@@ -9,6 +9,8 @@ use Jerlim\Stonksim\StockPriceData;
 abstract class IndicatorBuilder
 {
 
+    protected StockPriceData $stockPriceData;
+
     /**
      * Return the concrete @return Indicator
      * @link Indicator
@@ -30,10 +32,23 @@ abstract class IndicatorBuilder
      */
     abstract public function numPriorIntervals(): int;
 
-    abstract public function getStockPriceData(): StockPriceData;
+    /**
+     * @return StockPriceData
+     */
+    public function getStockPriceData(): StockPriceData
+    {
+        return $this->stockPriceData;
+    }
 
-    abstract public function setStockPriceData(StockPriceData $stockPriceData):
-    IndicatorBuilder;
+    /**
+     * @param StockPriceData $stockPriceData
+     * @return IndicatorBuilder
+     */
+    public function setStockPriceData(StockPriceData $stockPriceData): IndicatorBuilder
+    {
+        $this->stockPriceData = $stockPriceData;
+        return $this;
+    }
 
     public function __toString(): string
     {

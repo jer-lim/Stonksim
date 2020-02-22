@@ -12,7 +12,6 @@ use Jerlim\Stonksim\StockPriceData;
 
 class PositiveChangeOnlyBuilder extends IndicatorBuilder
 {
-    private StockPriceData $stockPriceData;
     private RawChange $rawChangeInd;
 
     /**
@@ -68,24 +67,4 @@ class PositiveChangeOnlyBuilder extends IndicatorBuilder
         $this->rawChangeInd = $rawChangeInd;
         return $this;
     }
-
-    /**
-     * @return StockPriceData
-     */
-    public function getStockPriceData(): StockPriceData
-    {
-        return $this->stockPriceData;
-    }
-
-    /**
-     * @param StockPriceData $stockPriceData
-     * @return PositiveChangeOnlyBuilder
-     */
-    public function setStockPriceData(StockPriceData $stockPriceData): PositiveChangeOnlyBuilder
-    {
-        $this->stockPriceData = $stockPriceData;
-        return $this;
-    }
-
-
 }

@@ -8,11 +8,9 @@ use Jerlim\Stonksim\Indicator\NegativeChangeOnly;
 use Jerlim\Stonksim\Indicator\RawChange;
 use Jerlim\Stonksim\Interfaces\Indicator;
 use Jerlim\Stonksim\Interfaces\IndicatorBuilder;
-use Jerlim\Stonksim\StockPriceData;
 
 class NegativeChangeOnlyBuilder extends IndicatorBuilder
 {
-    private StockPriceData $stockPriceData;
     private RawChange $rawChangeInd;
 
     /**
@@ -66,24 +64,6 @@ class NegativeChangeOnlyBuilder extends IndicatorBuilder
     public function setRawChangeInd(RawChange $rawChangeInd): NegativeChangeOnlyBuilder
     {
         $this->rawChangeInd = $rawChangeInd;
-        return $this;
-    }
-
-    /**
-     * @return StockPriceData
-     */
-    public function getStockPriceData(): StockPriceData
-    {
-        return $this->stockPriceData;
-    }
-
-    /**
-     * @param StockPriceData $stockPriceData
-     * @return NegativeChangeOnlyBuilder
-     */
-    public function setStockPriceData(StockPriceData $stockPriceData): NegativeChangeOnlyBuilder
-    {
-        $this->stockPriceData = $stockPriceData;
         return $this;
     }
 }

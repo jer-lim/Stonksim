@@ -28,7 +28,7 @@ class PositiveChangeOnly extends CachedIndicator
     /**
      * @inheritDoc
      */
-    public function getValue(int $intervalNum, OrderTime $orderTime): float
+    protected function getValue(int $intervalNum, OrderTime $orderTime): float
     {
         $change = $this->rawChangeInd->get($intervalNum, $orderTime);
         if ($change > 0) return $change;

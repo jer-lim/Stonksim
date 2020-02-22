@@ -11,7 +11,6 @@ use Jerlim\Stonksim\StockPriceData;
 
 class RawChangeBuilder extends IndicatorBuilder
 {
-    private StockPriceData $stockPriceData;
 
     /**
      * @inheritDoc
@@ -44,24 +43,4 @@ class RawChangeBuilder extends IndicatorBuilder
     {
         return 1;
     }
-
-    /**
-     * @return StockPriceData
-     */
-    public function getStockPriceData(): StockPriceData
-    {
-        return $this->stockPriceData;
-    }
-
-    /**
-     * @param StockPriceData $stockPriceData
-     * @return RawChangeBuilder
-     */
-    public function setStockPriceData(StockPriceData $stockPriceData): RawChangeBuilder
-    {
-        $this->stockPriceData = $stockPriceData;
-        return $this;
-    }
-
-
 }
