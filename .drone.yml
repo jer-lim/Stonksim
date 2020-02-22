@@ -6,10 +6,8 @@ steps:
   - name: build
     image: registry.jerl.im/php-base:php7.4
     commands:
-      - composer install --no-dev
+      - composer install
   - name: test
     image: registry.jerl.im/php-base:php7.4
     commands:
-      - curl https://phar.phpunit.de/phpunit-9.phar --output phpunit
-      - chmod +x phpunit
-      - ./phpunit tests
+      - vendor/bin/phpunit tests
