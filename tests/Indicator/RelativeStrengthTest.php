@@ -35,7 +35,7 @@ class RelativeStrengthTest extends TestCase
             ->setMoney(10000)
             ->build();
         $ind = $sim->addIndicator(RelativeStrength::newBuilder()->setPeriod(5));
-        self::assertEquals(INF, $ind->get($sim->getInterval(),
+        self::assertEquals(1, $ind->get($sim->getInterval(),
                                             OrderTime::AT_CLOSE()));
     }
 }
