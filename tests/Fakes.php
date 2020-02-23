@@ -31,6 +31,26 @@ class Fakes extends TestCase
             ->build();
     }
 
+    // 100 99 98 97 76 95 94 93 92 91 90
+    public function fakeDescendingStockPriceData(int $numIntervals):
+    StockPriceData
+    {
+        $intervalPrices = [];
+        for ($i = 0; $i < $numIntervals; ++$i) {
+            array_push($intervalPrices, $this->fakeIntervalPrice(100 - $i));
+        }
+        $stub = $this->createStub(StockPriceProducer::class);
+        $stub->method('getIntervalPrices')
+            ->willReturn($intervalPrices);
+        return StockPriceData::newBuilder()
+            ->setStockPriceProducer($stub)
+            ->setStockInfo($this->fakeStockInfo())
+            ->setFirstDateTime(new \DateTime())
+            ->setLastDateTime(new \DateTime())
+            ->setInterval(new \DateInterval('PT0S'))
+            ->build();
+    }
+
     public function fakeIntervalPrice(float $price): IntervalPrice
     {
         return IntervalPrice::newBuilder()
