@@ -43,7 +43,8 @@ class RelativeStrengthBuilder extends IndicatorBuilder
      */
     public function numPriorIntervals(): int
     {
-        return $this->period;
+        return AveragePositiveChange::newBuilder()->setPeriod($this->period)
+            ->numPriorIntervals();
     }
 
     /**

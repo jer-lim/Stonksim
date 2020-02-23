@@ -21,12 +21,12 @@ class RelativeStrengthTest extends TestCase
             ->setStockPriceData($teethStockChartData)
             ->setMoney(10000)
             ->build();
-        $ind = $sim->addIndicator(RelativeStrength::newBuilder()->setPeriod(5));
+        $ind = $sim->addIndicator(RelativeStrength::newBuilder()->setPeriod(3));
 
-        self::assertEquals(2 / 3, $ind->get($sim->getInterval(),
+        self::assertEquals(1 / 2, $ind->get($sim->getInterval(),
                                             OrderTime::AT_CLOSE()));
         $sim->forward();
-        self::assertEquals(3 / 2, $ind->get($sim->getInterval(),
+        self::assertEquals(5 / 4, $ind->get($sim->getInterval(),
                                             OrderTime::AT_CLOSE()));
 
         $constStockChartData = $fakes->fakeConstantStockPriceData(50);

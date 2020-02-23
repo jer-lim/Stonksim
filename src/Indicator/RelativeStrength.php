@@ -36,6 +36,9 @@ class RelativeStrength extends CachedIndicator
         $avPos = $this->averagePositiveChangeInd->get($intervalNum, $orderTime);
         $avNeg = $this->averageNegativeChangeInd->get($intervalNum, $orderTime);
         if ($avNeg === 0.0) {
+            if ($avPos === 0.0) {
+                return 1;
+            }
             return INF;
         } else {
             return $avPos / -$avNeg;

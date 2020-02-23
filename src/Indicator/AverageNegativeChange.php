@@ -30,8 +30,15 @@ class AverageNegativeChange extends CachedIndicator
     protected function getValue(int $intervalNum, OrderTime $orderTime): float
     {
         $sum = 0;
-        for ($i = $intervalNum - $this->period; $i < $intervalNum; ++$i) {
-            $sum += $this->negativeChangeOnlyInd->get($i, $orderTime);
+        if ($intervalNum == $this->period) {
+            for ($i = $intervalNum - $this->period + 1; $i <= $intervalNum;
+                 ++$i) {
+                $sum += $this->negativeChangeOnlyInd->get($i, $orderTime);
+            }
+        } else {
+            $sum = ($this->period - 1) * $this->get($intervalNum - 1,
+                                                    $orderTime);
+            $sum += $this->negativeChangeOnlyInd->get($intervalNum, $orderTime);
         }
         return $sum/$this->period;
     }

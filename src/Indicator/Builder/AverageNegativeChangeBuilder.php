@@ -35,7 +35,7 @@ class AverageNegativeChangeBuilder extends IndicatorBuilder
      */
     public function numPriorIntervals(): int
     {
-        return $this->period + 1;
+        return $this->period;
     }
 
     /**

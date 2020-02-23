@@ -25,7 +25,7 @@ class AverageNegativeChangeTest extends TestCase
         self::assertEquals(-1 / 3, $ind->get($sim->getInterval(),
                                              OrderTime::AT_OPEN()));
         $sim->forward();
-        self::assertEquals(-0.5 / 3, $ind->get($sim->getInterval(),
+        self::assertEquals(-4 / 18, $ind->get($sim->getInterval(),
                                                OrderTime::AT_OPEN()));
     }
 }
