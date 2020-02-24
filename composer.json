@@ -2,7 +2,7 @@
   "name": "jerlim/stonksim",
   "description": "stonks",
   "type": "library",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Jeremy Lim",
