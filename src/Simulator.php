@@ -109,9 +109,9 @@ class Simulator
     {
         $price = $this->stockPriceData->getPriceAtInterval
         ($this->currentInterval);
-        if ($orderTime == OrderTime::AT_OPEN) {
+        if ($orderTime == OrderTime::AT_OPEN()) {
             return $price->getOpen();
-        } elseif ($orderTime == OrderTime::AT_CLOSE) {
+        } elseif ($orderTime == OrderTime::AT_CLOSE()) {
             return $price->getClose();
         }
         throw new \UnexpectedValueException("Not a valid OrderTime.");

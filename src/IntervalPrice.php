@@ -31,11 +31,11 @@ class IntervalPrice
 
     public function get(OrderTime $orderTime): float
     {
-        if ($orderTime == OrderTime::AT_OPEN) {
+        if ($orderTime == OrderTime::AT_OPEN()) {
             return $this->getOpen();
-        } elseif ($orderTime == OrderTime::AT_LOW) {
+        } elseif ($orderTime == OrderTime::AT_LOW()) {
             return $this->getLow();
-        } elseif ($orderTime == OrderTime::AT_HIGH) {
+        } elseif ($orderTime == OrderTime::AT_HIGH()) {
             return $this->getHigh();
         } else {
             return $this->getClose();
