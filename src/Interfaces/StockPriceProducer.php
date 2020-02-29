@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Jerlim\Stonksim\Interfaces;
 
+use Jerlim\Stonksim\IntervalPrice;
 
 interface StockPriceProducer
 {
