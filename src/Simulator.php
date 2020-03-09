@@ -20,11 +20,13 @@ class Simulator
      */
     private array $indicators = [];
     private int $firstInterval = 0;
+    private float $startingMoney = 0;
 
     public function __construct(SimulatorBuilder $builder)
     {
         $this->stockPriceData = $builder->getStockPriceData();
         $this->money = $builder->getMoney();
+        $this->startingMoney = $this->money;
     }
 
     public static function newBuilder(): SimulatorBuilder
@@ -63,21 +65,6 @@ class Simulator
     public function getInterval(): int
     {
         return $this->currentInterval;
-    }
-
-    /**
-     * Change the current interval to a specified number. Returns true if it
-     * is a valid interval.
-     * @param int $intervalNum
-     * @return bool
-     */
-    public function setInterval(int $intervalNum): bool
-    {
-        if ($intervalNum < $this->stockPriceData->getNumIntervals()) {
-            $this->currentInterval = $intervalNum;
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -185,14 +172,36 @@ class Simulator
         return $this->indicators[strval($builder)];
     }
 
-    public function getIndicator(IndicatorBuilder $builder): Indicator
+    public function reset(): void
     {
-        return $this->indicators[strval($builder)];
+        $this->money = $this->startingMoney;
+        $this->position = 0;
+        $this->currentInterval = $this->firstInterval;
+    }
+
+    /**
+     * Change the current interval to a specified number. Returns true if it
+     * is a valid interval.
+     * @param int $intervalNum
+     * @return bool
+     */
+    public function setInterval(int $intervalNum): bool
+    {
+        if ($intervalNum < $this->stockPriceData->getNumIntervals()) {
+            $this->currentInterval = $intervalNum;
+            return true;
+        }
+        return false;
     }
 
     public function hasIndicator(IndicatorBuilder $builder): bool
     {
         return isset($this->indicators[strval($builder)]);
+    }
+
+    public function getIndicator(IndicatorBuilder $builder): Indicator
+    {
+        return $this->indicators[strval($builder)];
     }
 
     /**
